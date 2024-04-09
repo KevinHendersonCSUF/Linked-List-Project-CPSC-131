@@ -1,3 +1,8 @@
+// Name: Kevin Henderson
+// CWID: 885395855
+// Git repository Link:
+// https://github.com/KevinHendersonCSUF/Linked-List-Project-CPSC-131.git
+
 #include<iostream>
 #include<memory>
 #include<vector>
