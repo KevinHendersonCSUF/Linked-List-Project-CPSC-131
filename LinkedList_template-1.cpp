@@ -23,7 +23,7 @@ template<typename T> class Tab {
     std::string url;
     std::string name;
     T memory;
-};
+}; // professor said this was good (DONT CHANGE IT)
 
 // Write template class Browser here
 template<typename T> class Browser {
@@ -46,13 +46,17 @@ template<typename T> class Browser {
         new_tab->memory = Memory;
         tail->next = new_tab;
         tail = new_tab;
-        new_tab->next = nullptr; //unsure
+        new_tab->next = nullptr; //unsure, professor said it was good but idk
         
     }
     }
     void switchToPrevTab() {
-
-    }
+        std::cout << "Switch to previous tab = " << tail->prev->url << std::endl << tail->prev->name
+                                                 << std::endl << tail->prev->memory << std::endl;
+        if (tail->prev == nullptr) {
+            std::cout << "No previous tab" << std::endl;
+        }
+    } //unsure
 
    void switchToNextTab() {
 
