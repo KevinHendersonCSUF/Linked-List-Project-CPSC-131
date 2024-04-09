@@ -18,17 +18,37 @@
 // Write template class Tab here
 template<typename T> class Tab {
     public:
-    Tab(std::shared_ptr<Tab> prev, T data, std::shared_ptr<Tab> next) : prev_(prev), data_(data), next_(next) {}
-
-    private:
-    std::shared_ptr<Tab> prev_, next_;
-    T data_;
+    std::shared_ptr<Tab<T>> prev;
+    std::shared_ptr<Tab<T>> next;
+    std::string url;
+    std::string name;
+    T memory;
 };
 
 // Write template class Browser here
 template<typename T> class Browser {
-   void addNewTab() {
-
+   std::shared_ptr<Tab<T>> head;
+   std::shared_ptr<Tab<T>> tail;
+   void addNewTab(std::string URL, std::string Name, T Memory) {
+    std::shared_ptr<Tab<T>> new_tab = std::make_shared<Tab<T>>();
+    if (head == nullptr) {
+        new_tab->url = URL;
+        new_tab->name = Name;
+        new_tab->memory = Memory;
+        new_tab->next = nullptr;
+        new_tab->prev = nullptr;
+        head = new_tab;
+        tail = new_tab;
+    }
+    else {
+        new_tab->url = URL;
+        new_tab->name = Name;
+        new_tab->memory = Memory;
+        tail->next = new_tab;
+        tail = new_tab;
+        new_tab->next = nullptr; //unsure
+        
+    }
     }
     void switchToPrevTab() {
 
