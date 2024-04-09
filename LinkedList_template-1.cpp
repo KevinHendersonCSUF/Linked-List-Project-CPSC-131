@@ -3,11 +3,53 @@
 #include<vector>
 #include<string>
 
+// template<typename T> class Node { FOR REFERENCE
+//     public:
+//     Node(std::shared_ptr<Node> prev, T data, std::shared_ptr<Node> next) : prev_(prev), data_(data), next_(next) {}
+//     private:
+//     std::shared_ptr<Node> prev_, next_;
+//     T data_;
+// };
 // Write template class Tab here
+template<typename T> class Tab {
+    public:
+    Tab(std::shared_ptr<Tab> prev, T data, std::shared_ptr<Tab> next) : prev_(prev), data_(data), next_(next) {}
 
+    private:
+    std::shared_ptr<Tab> prev_, next_;
+    T data_;
+};
 
 // Write template class Browser here
+template<typename T> class Browser {
+   void addNewTab() {
 
+    }
+    void switchToPrevTab() {
+
+    }
+
+   void switchToNextTab() {
+
+    }
+   void closeCurrentTab() {
+
+    }
+   void bookmarkCurrent() {
+
+    }
+   void showBookmarkTab() {
+
+    }
+   void moveCurrentToFirst() {
+
+    }
+   void total_memory() {
+
+    }
+   void deleteTab() {
+
+    }
 //Add display method in Browser template class 
     /*void display(){
             auto curr = head;
@@ -20,6 +62,7 @@
             std::cout<<std::endl;
         }
     */
+}; // CHANGE DATA TYPE OF EACH FUNCTION IF NEEDED!!!
 int main(){
     
     /*Browser<double> b1;
