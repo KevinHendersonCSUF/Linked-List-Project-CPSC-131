@@ -55,27 +55,41 @@ template<typename T> class Browser {
     // }
    
     void switchToPrevTab() {
-       
-        // if (curr->next == nullptr) {
-        //     std::cout << "No previous tab" << std::endl << std::endl;
-        // }
-        //   if (curr->next != nullptr) {
-        //      std::cout << curr->next->url << std::endl << curr->next->name << std::endl << curr->next->memory << std::endl << std::endl;
-        // } DOES NOT WORK, JUST PRINTS YOUTUBE TAB OVER AND OVER
+       std::shared_ptr<Tab<T>> prev_tab = std::make_shared<Tab<T>>();
+       auto curr = head;
+        if (curr->next == nullptr) {
+            std::cout << "No previous tab" << std::endl << std::endl;
+        }
+          if (curr->next != nullptr) {
+             //make the head the second node, and make the second node the head
+             prev_tab = curr->next;
+             prev_tab->url = curr->next->url;
+             prev_tab->name = curr->next->name;
+             prev_tab->memory = curr->next->memory;
+             std::cout << prev_tab->url << std::endl << prev_tab->name << std::endl << prev_tab->memory << std::endl << std::endl;
+        } //I THINK WORKS NOW
     }
 
    void switchToNextTab() {
         
-        // if (tail->prev == nullptr) {
-        //     std::cout << "No next tab" << std::endl << std::endl;
-        // }
-        //  if (head->prev != nullptr) {
-        //     std::cout << head->prev->url << std::endl << head->prev->name << std::endl << head->prev->memory << std::endl << std::endl;
-
-        // } if prev tab function is wrong, so is this one
+       std::shared_ptr<Tab<T>> next_tab = std::make_shared<Tab<T>>();
+       auto curr = head;
+        if (curr->prev == nullptr) {
+            std::cout << "No Next tab" << std::endl << std::endl;
+        }
+          if (curr->prev != nullptr) {
+             //make the head the second node, and make the second node the head
+             next_tab = curr->prev;
+             next_tab->url = curr->prev->url;
+             next_tab->name = curr->prev->name;
+             next_tab->memory = curr->prev->memory;
+             std::cout << next_tab->url << std::endl << next_tab->name << std::endl << next_tab->memory << std::endl << std::endl;
+        } //DOES NOT WORK, BECAUSE CURRENT TAB IS HEAD IDK MANNNN
     }
    void closeCurrentTab() {
-
+    auto curr = head;
+    head = head->next;
+    std::cout << "Now current tab is = " << head->name << std::endl;
     }
    void bookmarkCurrent() {
 
@@ -84,7 +98,19 @@ template<typename T> class Browser {
 
     }
    void moveCurrentToFirst() {
+std::shared_ptr<Tab<T>> first = std::make_shared<Tab<T>>();
 
+    first->url = tail->url;
+     first->name = tail->name;
+      first->memory = tail->memory;
+    first->next = head;
+    first->prev = nullptr;
+    head->prev = first;
+    head = first; // GOOD
+
+    // NEED TO FIND A WAY TO DELETE TAIL TAB
+
+    
     }
    T total_memory() {
     auto curr = head;
@@ -126,11 +152,11 @@ int main(){
     
     Browser<double> b1;
     b1.addNewTab("https://www.google.com","Google",23.45);
-    // b1.display();
-    // std::cout<<"Switch to previous tab = "<<std::endl;
-    // b1.switchToPrevTab();
-    // std::cout<<"Switch to Next tab = "<<std::endl;
-    // b1.switchToNextTab();
+    b1.display();
+    std::cout<<"Switch to previous tab = "<<std::endl;
+    b1.switchToPrevTab();
+    std::cout<<"Switch to Next tab = "<<std::endl;
+    b1.switchToNextTab();
     b1.addNewTab("https://www.youtube.com","YouTube",56);
     // b1.bookmarkCurrent();
     // b1.display();
@@ -142,7 +168,7 @@ int main(){
     b1.addNewTab("https://github.com","Github",110);
     b1.addNewTab("https://kaggle.com","Kaggle",310);
     // b1.bookmarkCurrent();
-    // b1.display();
+    b1.display();
     // std::cout<<"Total memory consumption = "<<b1.total_memory()<<"MB"<<std::endl;
     // b1.showBookmarkTab();
     // b1.moveCurrentToFirst();
@@ -153,18 +179,19 @@ int main(){
     // b1.switchToNextTab();
     // std::cout<<"Switch to previous tab = "<<std::endl;
     // b1.switchToPrevTab();
-    // b1.closeCurrentTab();
-    // b1.display();
+    b1.closeCurrentTab();
+    b1.display();
+    b1.moveCurrentToFirst(); // added this
     // std::cout<<"Switch to previous tab = "<<std::endl;
     // b1.switchToPrevTab();
     // b1.closeCurrentTab();
-    // b1.display();
+    b1.display();
     // b1.showBookmarkTab();
-    std::cout<<"Total Memory Consumption = "<<b1.total_memory()<<"MB"<<std::endl;
+    // std::cout<<"Total Memory Consumption = "<<b1.total_memory()<<"MB"<<std::endl;
     // b1.deleteTab();
     // b1.display();
-    b1.addNewTab("https://docs.google.com/","Google Docs",102.34);
-    b1.display();
+    // b1.addNewTab("https://docs.google.com/","Google Docs",102.34);
+    // b1.display();
     // std::cout<<"Switch to previous tab = "<<std::endl;
     // b1.switchToPrevTab();
     // std::cout<<"Switch to previous tab = "<<std::endl;
@@ -174,7 +201,7 @@ int main(){
     // b1.bookmarkCurrent();
     // b1.showBookmarkTab();
     // b1.total_memory();
-    b1.deleteTab();
+    // b1.deleteTab();
     // b1.display();
     return 0;
 }
