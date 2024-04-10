@@ -8,13 +8,6 @@
 #include<vector>
 #include<string>
 
-// template<typename T> class Node { FOR REFERENCE
-//     public:
-//     Node(std::shared_ptr<Node> prev, T data, std::shared_ptr<Node> next) : prev_(prev), data_(data), next_(next) {}
-//     private:
-//     std::shared_ptr<Node> prev_, next_;
-//     T data_;
-// };
 // Write template class Tab here
 template<typename T> class Tab {
     public:
@@ -47,28 +40,40 @@ template<typename T> class Browser {
         new_tab->memory = Memory;
         tail->next = new_tab;
         tail = new_tab;
-        new_tab->next = nullptr; //unsure, professor said it was good but idk
+        new_tab->next = nullptr;
         
     }
     }
+    // int GetSize() { //for me to get the size of the linked list
+    // auto curr = head;
+    // int counter = 0;
+    // while (curr) {
+    //     counter++;
+    //     curr = curr->next;
+    // }
+    // return counter;
+    // }
+   
     void switchToPrevTab() {
-        if (head->next == nullptr) {
-            std::cout << "No previous tab" << std::endl << std::endl;
-        }
-          if (head->next != nullptr) {
-             std::cout << head->next->url << std::endl << head->next->name << std::endl << head->next->memory << std::endl << std::endl;
-        }
-    } //unsure, kind of works but will need to test with the completed code
+       
+        // if (curr->next == nullptr) {
+        //     std::cout << "No previous tab" << std::endl << std::endl;
+        // }
+        //   if (curr->next != nullptr) {
+        //      std::cout << curr->next->url << std::endl << curr->next->name << std::endl << curr->next->memory << std::endl << std::endl;
+        // } DOES NOT WORK, JUST PRINTS YOUTUBE TAB OVER AND OVER
+    }
 
    void switchToNextTab() {
-    std::cout << tail->next->url << std::endl << tail->prev->name << std::endl << tail->prev->memory << std::endl;
-        if (tail->prev == nullptr) {
-            std::cout << "No next tab" << std::endl << std::endl;
-        }
-         if (head->prev != nullptr) {
-            std::cout << head->prev->url << std::endl << head->prev->name << std::endl << head->prev->memory << std::endl << std::endl;
-        }
-    } //EXTREMELY UNSURE
+        
+        // if (tail->prev == nullptr) {
+        //     std::cout << "No next tab" << std::endl << std::endl;
+        // }
+        //  if (head->prev != nullptr) {
+        //     std::cout << head->prev->url << std::endl << head->prev->name << std::endl << head->prev->memory << std::endl << std::endl;
+
+        // } if prev tab function is wrong, so is this one
+    }
    void closeCurrentTab() {
 
     }
@@ -81,12 +86,29 @@ template<typename T> class Browser {
    void moveCurrentToFirst() {
 
     }
-   void total_memory() {
-
+   T total_memory() {
+    auto curr = head;
+    T total = 0;
+            while(curr){
+                total += curr->memory;
+                curr = curr->next;
+            }
+            return total;
     }
    void deleteTab() {
-
-    }
+    auto curr = head;
+    T most_mem = 0;
+    std::string hungry_tab;
+            while(curr){
+                if (curr->memory > most_mem) {
+                    most_mem = curr->memory;
+                    hungry_tab = curr->name;
+                }
+                curr = curr->next;
+            }
+            //find a way to delete the tab
+            std::cout << "deleted element = " << hungry_tab << " with memory size = "<< most_mem << std::endl; //doesnt actually delete the tab yet, although it prints otherwise
+   }
 //Add display method in Browser template class 
     void display(){
             auto curr = head;
@@ -102,23 +124,23 @@ template<typename T> class Browser {
 }; // CHANGE DATA TYPE OF EACH FUNCTION IF NEEDED!!!
 int main(){
     
-    // Browser<double> b1;
-    // b1.addNewTab("https://www.google.com","Google",23.45);
+    Browser<double> b1;
+    b1.addNewTab("https://www.google.com","Google",23.45);
     // b1.display();
     // std::cout<<"Switch to previous tab = "<<std::endl;
     // b1.switchToPrevTab();
     // std::cout<<"Switch to Next tab = "<<std::endl;
     // b1.switchToNextTab();
-    // b1.addNewTab("https://www.youtube.com","YouTube",56);
+    b1.addNewTab("https://www.youtube.com","YouTube",56);
     // b1.bookmarkCurrent();
     // b1.display();
-    // b1.addNewTab("https://www.geeksforgeeks.com","GeeksForGeeks",45.78);
+    b1.addNewTab("https://www.geeksforgeeks.com","GeeksForGeeks",45.78);
     // b1.bookmarkCurrent();
-    // b1.addNewTab("https://chat.openai.com","ChatGPT",129);
-    // b1.addNewTab("https://linkedin.com","LinkedIn",410);
+    b1.addNewTab("https://chat.openai.com","ChatGPT",129);
+    b1.addNewTab("https://linkedin.com","LinkedIn",410);
     // b1.bookmarkCurrent();
-    // b1.addNewTab("https://github.com","Github",110);
-    // b1.addNewTab("https://kaggle.com","Kaggle",310);
+    b1.addNewTab("https://github.com","Github",110);
+    b1.addNewTab("https://kaggle.com","Kaggle",310);
     // b1.bookmarkCurrent();
     // b1.display();
     // std::cout<<"Total memory consumption = "<<b1.total_memory()<<"MB"<<std::endl;
@@ -138,11 +160,11 @@ int main(){
     // b1.closeCurrentTab();
     // b1.display();
     // b1.showBookmarkTab();
-    // std::cout<<"Total Memory Consumption = "<<b1.total_memory()<<"MB"<<std::endl;
+    std::cout<<"Total Memory Consumption = "<<b1.total_memory()<<"MB"<<std::endl;
     // b1.deleteTab();
     // b1.display();
-    // b1.addNewTab("https://docs.google.com/","Google Docs",102.34);
-    // b1.display();
+    b1.addNewTab("https://docs.google.com/","Google Docs",102.34);
+    b1.display();
     // std::cout<<"Switch to previous tab = "<<std::endl;
     // b1.switchToPrevTab();
     // std::cout<<"Switch to previous tab = "<<std::endl;
@@ -152,7 +174,7 @@ int main(){
     // b1.bookmarkCurrent();
     // b1.showBookmarkTab();
     // b1.total_memory();
-    // b1.deleteTab();
+    b1.deleteTab();
     // b1.display();
     return 0;
 }
